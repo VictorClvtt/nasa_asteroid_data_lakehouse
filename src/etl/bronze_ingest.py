@@ -50,3 +50,4 @@ json_bytes = json.dumps(data, indent=2).encode("utf-8")
 s3.put_object(Bucket=bucket_name, Key=file_name, Body=json_bytes)
 
 print(f"✅ Arquivo salvo em s3://{bucket_name}/{file_name}")
+# %%

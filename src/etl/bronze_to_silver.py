@@ -36,7 +36,7 @@ df = spark.read.option("multiline", "true").json(f"s3a://{bucket_name}/bronze/JS
 # %%
 # Transformar em estrutura tabular
 df = df.select(
-    F.explode(F.col("near_earth_objects.2025-09-28")).alias("asteroid")
+    F.explode(F.col(f"near_earth_objects.{today_str}")).alias("asteroid")
 ).select(
     # Identificação
     F.col("asteroid.id").alias("asteroid_id"),
