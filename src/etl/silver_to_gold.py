@@ -28,7 +28,7 @@ spark = SparkSession.builder \
     .config("spark.hadoop.fs.s3a.connection.ssl.enabled", "false") \
     .getOrCreate()
 
-today_str = '2025-09-29'
+today_str = datetime.today().strftime("%Y-%m-%d")
 df = spark.read.parquet(f"s3a://{bucket_name}/silver/nasa_asteroids/_processing_date={today_str}/")
 
 # %%
@@ -94,3 +94,5 @@ dim_celestial_body.write.mode("append").parquet(
 fact_asteroid_approach.write.mode("append").parquet(
     f"s3a://{bucket_name}/gold/fact_asteroid_approach"
 )
+
+# %%
