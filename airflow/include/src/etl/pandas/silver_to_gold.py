@@ -6,7 +6,7 @@ def silver_to_gold():
     from datetime import datetime
 
     # Carregando variáveis do .env
-    env_path = "/usr/local/airflow/include/.env"
+    env_path = "/home/victor/Documentos/Code/Python/Data_Engineering/nasa_meteor_data_warehouse/.env"
     load_dotenv(env_path)
 
     access_key = os.getenv("AWS_ACCESS_KEY_ID")
@@ -87,28 +87,30 @@ def silver_to_gold():
 
     # %%
     # Salvar de volta no MinIO em parquet
+    batch_id = fact_asteroid_approach["_etl_batch_id"].iloc[0]
+
     dim_asteroid.to_parquet(
-        f"s3://{bucket_name}/gold/dim_asteroid.parquet",
+        f"s3://{bucket_name}/gold/dim_asteroid/data_{batch_id}.parquet",
         index=False,
         storage_options=storage_options
     )
 
     dim_date.to_parquet(
-        f"s3://{bucket_name}/gold/dim_date.parquet",
+        f"s3://{bucket_name}/gold/dim_date/data_{batch_id}.parquet",
         index=False,
         storage_options=storage_options
     )
 
     dim_celestial_body.to_parquet(
-        f"s3://{bucket_name}/gold/dim_celestial_body.parquet",
+        f"s3://{bucket_name}/gold/dim_celestial_body/data_{batch_id}.parquet",
         index=False,
         storage_options=storage_options
     )
 
     fact_asteroid_approach.to_parquet(
-        f"s3://{bucket_name}/gold/fact_asteroid_approach.parquet",
+        f"s3://{bucket_name}/gold/fact_asteroid_approach/data_{batch_id}.parquet",
         index=False,
         storage_options=storage_options
     )
 
-    print("✅ Dataframes gold salvos com sucesso!")
+    print(f"✅ Dataframes gold salvos com sucesso! (batch_id={batch_id})")
