@@ -6,7 +6,7 @@ def silver_to_gold():
     from datetime import datetime
 
     # Carregando variáveis do .env
-    env_path = "/home/victor/Documentos/Code/Python/Data_Engineering/nasa_meteor_data_warehouse/.env"
+    env_path = "/usr/local/airflow/include/.env"
     load_dotenv(env_path)
 
     access_key = os.getenv("AWS_ACCESS_KEY_ID")
